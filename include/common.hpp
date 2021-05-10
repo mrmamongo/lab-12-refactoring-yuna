@@ -44,12 +44,12 @@ struct item {
     char* endptr;
     std::string str{};
     is >> str;
-    i.id = static_cast<int>strtol(str.c_str(), &endptr, 10);
+    i.id = static_cast<int>(strtol(str.c_str(), &endptr, 10));
     if (str[0] == *endptr) { i.id = -1; }
     is >> i.name;
     str.clear();
     is >> str;
-    i.score = static_cast<int>strtol(str.c_str(), &endptr, 10);
+    i.score = static_cast<int>(strtol(str.c_str(), &endptr, 10));
     if (str[0] == *endptr) { i.score = -1; }
     return is;
   }
