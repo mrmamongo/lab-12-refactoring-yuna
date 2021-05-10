@@ -25,8 +25,8 @@ class stat_sender : public i_observer {
                           const std::vector<std::string>&) override {}
 
  protected:
-  virtual void async_send(const std::vector<item>& new_items,
-                          std::string_view path);
+  virtual void async_send(const std::vector<item>&,
+                          std::string_view);
 
  private:
   std::ofstream _out_file{"network", std::ios::binary};
