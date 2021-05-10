@@ -24,6 +24,11 @@ class page_container {
     attach(counter);
     attach(sender);
   }
+  ~page_container() {
+    for (auto observer : _observers){
+      delete observer;
+    }
+  }
 
   void attach(i_observer* observer) { _observers.emplace_back(observer); }
 

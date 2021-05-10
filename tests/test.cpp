@@ -56,15 +56,15 @@ TEST(PageContainer_Test, AsyncSend_Test) {
   std::stringstream ss{};
   prepare_stringstream(ss);
 
-  used_memory used{};
-  mock_stat_sender sender{};
-  page_container<mock_stat_sender> page(&used, &sender);
+  used_memory* used = new used_memory();
+  mock_stat_sender* sender = new mock_stat_sender();
+  page_container<mock_stat_sender> page(used, sender);
 
   page.load_raw_data(ss);
-  EXPECT_CALL(sender,
+  EXPECT_CALL(*sender,
               async_send(_, std::string_view{"/items/loaded"}))
       .Times(2);
-  EXPECT_CALL(sender,
+  EXPECT_CALL(*sender,
               async_send(_, std::string_view{"/items/skipped"}))
       .Times(12);
   page.load_data(0);
