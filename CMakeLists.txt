@@ -32,7 +32,7 @@ find_package(GTest CONFIG REQUIRED)
 hunter_add_package(Boost COMPONENTS program_options)
 find_package(Boost COMPONENTS program_options CONFIG REQUIRED)
 
-add_library(${PROJECT_NAME} STATIC
+add_library(${PROJECT_NAME}
   # enum your files and delete this comment
         sources/histogram.cpp
         sources/stat_sender.cpp
