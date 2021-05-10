@@ -1,9 +1,10 @@
+// Copyright 2020 mrmamongo
 //
 // Created by lamp on 5/9/21.
 //
 
-#ifndef SCORE_HANDLER_LOG_HPP
-#define SCORE_HANDLER_LOG_HPP
+#ifndef INCLUDE_LOG_HPP_
+#define INCLUDE_LOG_HPP_
 
 #include <common.hpp>
 
@@ -22,7 +23,6 @@ class log_t {
  private:
   size_t _level = 0;
   mutable std::ostream* _output;
-
 };
 
-#endif  // SCORE_HANDLER_LOG_HPP
+#endif  // INCLUDE_LOG_HPP_

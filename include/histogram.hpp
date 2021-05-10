@@ -1,10 +1,13 @@
+// Copyright 2020 mrmamongo
 //
 // Created by lamp on 5/9/21.
 //
 
-#ifndef SCORE_HANDLER_HISTOGRAM_HPP
-#define SCORE_HANDLER_HISTOGRAM_HPP
+#ifndef INCLUDE_HISTOGRAM_HPP_
+#define INCLUDE_HISTOGRAM_HPP_
 
+#include <vector>
+#include <string>
 #include <common.hpp>
 #include <log.hpp>
 #include <i_observer.hpp>
@@ -27,4 +30,4 @@ class histogram : public i_observer {
   size_t _thrown = 0;
 };
 
-#endif  // SCORE_HANDLER_HISTOGRAM_HPP
+#endif  // INCLUDE_HISTOGRAM_HPP_

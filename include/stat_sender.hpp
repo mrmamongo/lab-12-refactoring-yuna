@@ -1,13 +1,16 @@
+// Copyright 2020 mrmamongo
 //
 // Created by lamp on 5/9/21.
 //
 
-#ifndef SCORE_HANDLER_STATSENDER_HPP
-#define SCORE_HANDLER_STATSENDER_HPP
+#ifndef INCLUDE_STAT_SENDER_HPP_
+#define INCLUDE_STAT_SENDER_HPP_
 
 #include <common.hpp>
 #include <log.hpp>
 #include <i_observer.hpp>
+#include <string>
+#include <vector>
 
 class stat_sender : public i_observer {
  public:
@@ -28,4 +31,4 @@ class stat_sender : public i_observer {
  private:
   std::ofstream _out_file{"network", std::ios::binary};
 };
-#endif  // SCORE_HANDLER_STATSENDER_HPP
+#endif  // INCLUDE_STAT_SENDER_HPP_

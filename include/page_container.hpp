@@ -1,25 +1,32 @@
+// Copyright 2020 mrmamongo
 //
 // Created by lamp on 5/9/21.
 //
 
-#ifndef SCORE_HANDLER_PAGE_CONTAINER_HPP
-#define SCORE_HANDLER_PAGE_CONTAINER_HPP
+#ifndef INCLUDE_PAGE_CONTAINER_HPP_
+#define INCLUDE_PAGE_CONTAINER_HPP_
 
 #include <common.hpp>
 #include <log.hpp>
 #include <used_memory.hpp>
 #include <histogram.hpp>
 #include <stat_sender.hpp>
+#include <set>
+#include <vector>
+#include <string>
+#include <utility>
 
 template <class stat_sender_t = stat_sender>
 class page_container {
  public:
-  explicit page_container(used_memory* counter = new used_memory(), stat_sender_t* sender = new stat_sender_t()) {
+  explicit page_container(used_memory* counter = new used_memory(),
+                          stat_sender_t* sender = new stat_sender_t()) {
     attach(counter);
     attach(sender);
   }
 
   void attach(i_observer* observer) { _observers.emplace_back(observer); }
+
  public:
   void load_raw_data(std::istream& is) {
     std::vector<std::string> raw_data;
@@ -43,7 +50,7 @@ class page_container {
     on_raw_data_load(raw_data);
     _raw_data = std::move(raw_data);
   }
-  void load_data(int threshold){
+  void load_data(int threshold) {
     std::vector<item> data;
     std::set<int> ids;
     for (const auto& line : _raw_data) {
@@ -73,23 +80,24 @@ class page_container {
 
   const item& operator[](size_t i) const { return _data[i]; }
   const item& operator[](const std::string& id) const {
-    auto it = std::find_if(_data.begin(), _data.end(),
-                           [&id](auto const& i) { return atoi(id.c_str()) == i.id; });
+    auto it = std::find_if(_data.begin(), _data.end(), [&id](auto const& i) {
+      return atoi(id.c_str()) == i.id;
+    });
     return *it;
   }
 
-  void on_data_load(const std::vector<item>& new_data){
-    for (auto& observer : _observers){
+  void on_data_load(const std::vector<item>& new_data) {
+    for (auto& observer : _observers) {
       observer->on_data_load(_data, new_data);
     }
   }
-  void on_raw_data_load(const std::vector<std::string>& new_data){
-    for (auto& observer : _observers){
+  void on_raw_data_load(const std::vector<std::string>& new_data) {
+    for (auto& observer : _observers) {
       observer->on_raw_data_load(_raw_data, new_data);
     }
   }
-  void on_skipped(const item& i){
-    for (auto& observer : _observers){
+  void on_skipped(const item& i) {
+    for (auto& observer : _observers) {
       observer->on_skipped(i);
     }
   }
@@ -102,4 +110,4 @@ class page_container {
   std::vector<std::string> _raw_data;
 };
 
-#endif  // SCORE_HANDLER_PAGE_CONTAINER_HPP
+#endif  // INCLUDE_PAGE_CONTAINER_HPP_

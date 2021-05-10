@@ -1,20 +1,24 @@
+// Copyright 2020 mrmamongo
 //
 // Created by lamp on 5/9/21.
 //
 
-#ifndef SCORE_HANDLER_USEDMEMORY_HPP
-#define SCORE_HANDLER_USEDMEMORY_HPP
+#ifndef INCLUDE_USED_MEMORY_HPP_
+#define INCLUDE_USED_MEMORY_HPP_
 
 #include <common.hpp>
 #include <log.hpp>
 #include <i_observer.hpp>
+#include <vector>
+#include <string>
 
-class used_memory : public i_observer{
+class used_memory : public i_observer {
  public:
   used_memory() = default;
-  virtual ~used_memory() = default;
+  ~used_memory() override = default;
 
-  void on_data_load(const std::vector<item>&, const std::vector<item>&) override;
+  void on_data_load(const std::vector<item>&,
+                    const std::vector<item>&) override;
   void on_raw_data_load(const std::vector<std::string>&,
                         const std::vector<std::string>&) override;
   void on_skipped(const item&) override {}
@@ -26,4 +30,4 @@ class used_memory : public i_observer{
  private:
   size_t _used = 0;
 };
-#endif  // SCORE_HANDLER_USEDMEMORY_HPP
+#endif  // INCLUDE_USED_MEMORY_HPP_

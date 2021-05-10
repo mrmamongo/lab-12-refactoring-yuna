@@ -17,7 +17,7 @@ class Log {
     if (level_ > 0) *out_ << message << std::endl;
   }
 
-  Log(size_t level) : level_(level) { out_ = &std::cout; }
+  explicit Log(size_t level) : level_(level) { out_ = &std::cout; }
 
  private:
   size_t level_ = 0;
@@ -34,7 +34,7 @@ constexpr size_t kMinLines = 10;
 
 class UsedMemory {
  public:
-  UsedMemory(const Log& log) : log_(&log) {}
+  explicit UsedMemory(const Log& log) : log_(&log) {}
 
   void OnDataLoad(const std::vector<Item>& old_items,
                   const std::vector<Item>& new_items) {
@@ -75,7 +75,7 @@ class UsedMemory {
 
 class StatSender {
  public:
-  StatSender(const Log& log) : log_(&log) {}
+  explicit StatSender(const Log& log) : log_(&log) {}
   void OnLoaded(const std::vector<Item>& new_items) {
     log_->WriteDebug("StatSender::OnDataLoad");
 
@@ -130,7 +130,6 @@ class PageContainer {
       if (auto&& [_, inserted] = ids.insert(item.id); !inserted) {
         throw std::runtime_error("already seen");
       }
-
       if (item.score > threshold) {
         data.push_back(std::move(item));
       } else {

@@ -1,9 +1,10 @@
+// Copyright 2020 mrmamongo
 //
 // Created by lamp on 5/9/21.
 //
 
-#ifndef SCORE_HANDLER_COMMON_HPP
-#define SCORE_HANDLER_COMMON_HPP
+#ifndef INCLUDE_COMMON_HPP_
+#define INCLUDE_COMMON_HPP_
 
 #include <boost/program_options.hpp>
 #include <algorithm>
@@ -43,15 +44,15 @@ struct item {
     char* endptr;
     std::string str{};
     is >> str;
-    i.id = (int)strtol(str.c_str(), &endptr, 10);
+    i.id = static_cast<int>strtol(str.c_str(), &endptr, 10);
     if (str[0] == *endptr) { i.id = -1; }
     is >> i.name;
     str.clear();
     is >> str;
-    i.score = (int)strtol(str.c_str(), &endptr, 10);
+    i.score = static_cast<int>strtol(str.c_str(), &endptr, 10);
     if (str[0] == *endptr) { i.score = -1; }
     return is;
   }
 };
 
-#endif  // SCORE_HANDLER_COMMON_HPP
+#endif  // INCLUDE_COMMON_HPP_
