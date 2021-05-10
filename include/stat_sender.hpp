@@ -1,0 +1,31 @@
+//
+// Created by lamp on 5/9/21.
+//
+
+#ifndef SCORE_HANDLER_STATSENDER_HPP
+#define SCORE_HANDLER_STATSENDER_HPP
+
+#include <common.hpp>
+#include <log.hpp>
+#include <i_observer.hpp>
+
+class stat_sender : public i_observer {
+ public:
+  stat_sender() = default;
+  virtual ~stat_sender() = default;
+
+ public:
+  void on_data_load(const std::vector<item>&,
+                      const std::vector<item>& new_items) override;
+  void on_skipped(const item& item = {-1, "inc", -1}) override;
+  void on_raw_data_load(const std::vector<std::string>&,
+                          const std::vector<std::string>&) override {}
+
+ protected:
+  virtual void async_send(const std::vector<item>& new_items,
+                          std::string_view path);
+
+ private:
+  std::ofstream _out_file{"network", std::ios::binary};
+};
+#endif  // SCORE_HANDLER_STATSENDER_HPP
